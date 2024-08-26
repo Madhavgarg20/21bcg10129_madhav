@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5x5 Grid Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <div id="move-history">
+            <h2>MOVE HISTORY</h2>
+            <ul id="move-list"></ul>
+        </div>
+        <div id="game-board"></div>
+        <div id="chat">
+            <h2>CHAT</h2>
+            <div id="chat-messages"></div>
+            <div id="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Type your message...">
+                <button onclick="sendChatMessage()">Send</button>
+            </div>
+        </div>
+        <div id="status-bar">
+            <h2 id="current-player">Waiting for players...</h2>
+            <div id="player-name">Your Name: <span id="player-name-display"></span></div>
+            <button id="ready-button" onclick="playerReady()">READY</button>
+        </div>
+        <div id="player-a" class="player-section">
+            <h2>PLAYER A</h2>
+            <h3>Wins</h1><div id="player-a-score">&nbsp;&nbsp; <span>0</span></div>
+        </div>
+        <div id="player-d" class="player-section">
+            <h1 id="game-title">G R I D  &nbsp;&nbsp;  W A R R I O R S          <h1>
+                <!-- <div id="player-a-score">Wins: <span>0</span></div> -->
+        </div>
+        <div id="player-b" class="player-section">
+            <h2>PLAYER B</h2>
+            <h3>Wins</h1><div id="player-b-score">&nbsp;&nbsp; <span>0</span></div>
+        </div>
+        <div id="piece-selection">
+            <h2>PIECE SELECTION</h2>
+            <div id="player-input">
+                <h3>Enter 5 Characters (P1,P2,H1,H2,H3)</h3>
+                <input type="text" id="player-input-field" placeholder="e.g. P1,P2,H1,H2,P3">
+            </div>
+        </div>
+        <div id="piece-description">
+            <h2>PIECE DESCRIPTION</h2>
+            <select id="piece-selector" onchange="showInstructions()">
+                <option value="">Select a piece</option>
+                <option value="pawn">Pawn</option>
+                <option value="hero1">Hero1</option>
+                <option value="hero2">Hero2</option>
+                <option value="hero3">Hero3</option>
+            </select>
+            <div id="instruction-display"></div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+    <script>
+        function showInstructions() {
+  const pieceSelector = document.getElementById('piece-selector');
+  const instructionDisplay = document.getElementById('instruction-display');
+  const selectedPiece = pieceSelector.value;
+
+  const instructions = {
+    pawn: "Pawn: Moves one block in any direction (Left, Right, Forward, or Backward). Move commands: L (Left), R (Right), F (Forward), B (Backward)",
+    hero1: "Hero1: Moves two blocks straight in any direction. Kills any opponent's character in its path. Move commands: L (Left), R (Right), F (Forward), B (Backward)",
+    hero2: "Hero2: Moves two blocks diagonally in any direction. Kills any opponent's character in its path. Move commands: FL (Forward-Left), FR (Forward-Right), BL (Backward-Left), BR (Backward-Right)",
+    hero3: "Hero3: Moves 2 steps straight and one to the side in a single turn. Kills only the character at its final landing position (if occupied by an opponent). Move commands: FL, FR, BL, BR, RF, RB, LF, LB"
+  };
+
+  instructionDisplay.textContent = instructions[selectedPiece] || '';
+}
+
+    </script>
+</body>
+</html>
