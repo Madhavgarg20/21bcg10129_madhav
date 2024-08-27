@@ -116,7 +116,7 @@ Follow these steps to set up and run the project locally:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/Madhavgarg20/GridWarriors.git
+    git clone https://github.com/Madhavgarg20/21bcg10129_madhav.git
     cd GridWarriors
     ```
 
